@@ -1,0 +1,83 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: {
+    typeName: 'vehiculo',
+    typeNamePlural: 'vehiculo',
+    typeImageUrl: '',
+    imageUrl: 'imagen',
+    title: {
+        type: #STANDARD,
+        label: '',
+        iconUrl: '',
+        criticality: '',
+        criticalityRepresentation: #WITHOUT_ICON,
+        value: 'marca',
+        valueQualifier: '',
+        targetElement: '',
+        url: ''
+    },
+    description: {
+        type: #STANDARD,
+        label: '',
+        iconUrl: '',
+        criticality: '',
+        criticalityRepresentation: #WITHOUT_ICON,
+        value: 'modelo',
+        valueQualifier: '',
+        targetElement: '',
+        url: ''
+    }
+}
+
+@Search.searchable: true
+annotate view zmgbi_alquiler with
+{
+  @UI.facet: [{ id: 'DetalleVehiculo', label: 'Detalles del Vehiculo', type: #COLLECTION, position: 10 },
+              { id: 'Vehiculo', parentId: 'DetalleVehiculo', label: 'Detalles', type: #FIELDGROUP_REFERENCE,
+                targetQualifier: 'DetalleVehiculo', position: 10},
+              { id: 'Cliente', label: 'Clientes', type: #LINEITEM_REFERENCE, targetElement: '_cli_det', position: 20 }
+             ]
+
+  @UI.fieldGroup: [{ qualifier: 'DetalleVehiculo', position: 10 }]
+  matricula;
+  @UI.lineItem: [ { position: 10, importance: #HIGH } ]
+  @UI.selectionField: [{ position: 10 }]
+  @Consumption.valueHelpDefinition: [{ entity: { name: 'ZMGBB_MARCA', element: 'marca' } }]
+  marca;
+  @UI.lineItem: [{ position: 20, importance: #HIGH }]
+  @Search: {
+      defaultSearchElement: true,
+      ranking: #MEDIUM,
+      fuzzinessThreshold: 0.8
+  }
+  modelo;
+  @UI.lineItem: [{ position: 30, importance: #MEDIUM }]
+  @Search: {
+    defaultSearchElement: true,
+    ranking: #MEDIUM,
+    fuzzinessThreshold: 0.8
+  }
+  color;
+  @UI.lineItem: [{ position: 40, importance: #LOW }]
+  motor;
+  @UI.lineItem: [{ position: 50, importance: #LOW }]
+  potencia;
+  @UI.lineItem: [{ position: 60, importance: #HIGH }]
+  precio;
+  @UI: { lineItem: [{ position: 70, importance: #HIGH }],
+         selectionField: [ { position: 20 } ] }
+  moneda;
+  @UI.lineItem: [{ position: 80, importance: #HIGH }]
+  alquilado;
+  @UI.lineItem: [{ position: 90, importance: #HIGH, label: 'Tiempo Restante', criticality: 'tiempo_rest' }]
+  estado;
+
+  @UI.fieldGroup: [{ qualifier: 'DetalleVehiculo', position: 20 }]
+  combustible;
+  @UI.fieldGroup: [{ qualifier: 'DetalleVehiculo', position: 30 }]
+  consumo;
+  @UI.fieldGroup: [{ qualifier: 'DetalleVehiculo', position: 40 }]
+  fecha_fabr;
+  @UI.fieldGroup: [{ qualifier: 'DetalleVehiculo', position: 50 }]
+  puerta;
+
+}

@@ -1,0 +1,5 @@
+@EndUserText.label: 'Alquiler'
+define service ZMGBSD_ALQUILER {
+  expose zmgbi_alquiler;
+  expose zmgbb_cliente_detalle;
+}
